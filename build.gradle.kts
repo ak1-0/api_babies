@@ -15,7 +15,9 @@ dependencies {
     testImplementation("io.rest-assured:rest-assured:4.5.1")
     implementation("com.google.code.gson:gson:2.8.8")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.0")
-    compileOnly("org.projectlombok:lombok:1.18.30")
+    implementation("org.projectlombok:lombok:1.18.30")
+    annotationProcessor("org.projectlombok:lombok:1.18.30")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.30")
 
 }
 

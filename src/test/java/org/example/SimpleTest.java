@@ -16,34 +16,34 @@ import static io.restassured.path.json.JsonPath.from;
 import static org.hamcrest.Matchers.hasKey;
 
 public class SimpleTest {
-    @BeforeAll
-    public static void setupTests(){
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-        RestAssured.baseURI = "https://crudcrud.com/api/d455de6fe2354674841491bcc4778825";
 
+    @BeforeAll
+    public static void setupTests() {
+        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+        RestAssured.baseURI = "https://crudcrud.com/api/7997a746d87e40c780245a271544323f";
     }
 
-
     @Test
-    public void userShouldBeAdleCreateStudent(){
-        // given - when - then BDD подход
-        //StudentRequests studentRequests = new StudentRequests();
+    public void userShouldBeAbleCreateStudent() {
+        // Создаем объект студента
+        Student student = Student.builder()
+                .name("Саша Петров")
+                .grade(2)
+                .build();
 
-        // серилизация из JSON в объект и наоборот
-        Student student = new Student("Саша Петров", 2);
+        // Создаем студента с использованием маппинга
         StudentRequests.createStudent(student);
     }
 
     @Test
     public void userShouldBeAbleDeleteExistingStudent() {
-        // ПРИНЦИПЫ РАЗРАБОТКИ API ТЕСТОВ
-        // 1. АТОМАРНОСТЬ
-        // 2. ТЕСТ САМ СЕБЕ ГОТОВИТ ДАННЫЕ
-
-        // FAIL FIRST
+        // Создаем объект студента
+        Student student = Student.builder()
+                .name("Саша Петров")
+                .grade(2)
+                .build();
 
         // ШАГ 1: СОЗДАНИЕ СТУДЕНТА
-        Student student = new Student("Саша Петров", 2);
         Student createdStudent = StudentRequests.createStudent(student);
 
         // ШАГ 2: УДАЛЕНИЕ СТУДЕНТА
@@ -56,5 +56,4 @@ public class SimpleTest {
                 .assertThat()
                 .statusCode(404);
     }
-
 }
