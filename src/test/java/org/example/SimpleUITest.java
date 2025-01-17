@@ -54,13 +54,14 @@ public class SimpleUITest {
         SelenideElement zipCodeError = element(Selectors.byId("customer.address.zipCode.errors"));
         zipCodeError.shouldHave(Condition.exactText("Zip Code is required."));
 
-        // Проверка ожидаемого результата: Телефон, элемент текст не показывается пользователю
-        // SelenideElement phoneNumberError = element(Selectors.byId("customer.phoneNumber.errors"));
-        // phoneNumberError.shouldNot(Condition.visible);
+        // Возможно, проверка телефона избыточная
+        // Телефон, элемент показан на странице
+        SelenideElement phoneNumber = element(Selectors.byId("customer.phoneNumber"));
+        phoneNumber.shouldBe(Condition.visible);
 
-        // Проверка ожидаемого результата: Телефон, элемент текст не присуствует на странице
-        // SelenideElement phoneNumberError1 = element(Selectors.byId("customer.phoneNumber.errors"));
-        // phoneNumberError1.shouldNot(Condition.exist);
+        // Телефон, элемент присуствует на странице
+        SelenideElement phoneNumber1 = element(Selectors.byId("customer.phoneNumber"));
+        phoneNumber1.shouldBe(Condition.exist);
 
         // Проверка ожидаемого результата: Номер страхования
         SelenideElement ssnError = element(Selectors.byId("customer.ssn.errors"));
