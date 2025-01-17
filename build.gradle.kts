@@ -18,6 +18,7 @@ dependencies {
     implementation("org.projectlombok:lombok:1.18.30")
     annotationProcessor("org.projectlombok:lombok:1.18.30")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.30")
+    implementation("com.codeborne:selenide:7.2.1")
 
 }
 
