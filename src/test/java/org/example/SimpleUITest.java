@@ -46,8 +46,36 @@ public class SimpleUITest {
         SelenideElement cityError = element(Selectors.byId("customer.address.city.errors"));
         cityError.shouldHave(Condition.exactText("City is required."));
 
+        // Проверка ожидаемого результата: Область
         SelenideElement stateError = element(Selectors.byId("customer.address.state.errors"));
         stateError.shouldHave(Condition.exactText("State is required."));
 
+        // Проверка ожидаемого результата: Почтовый индекс
+        SelenideElement zipCodeError = element(Selectors.byId("customer.address.zipCode.errors"));
+        zipCodeError.shouldHave(Condition.exactText("Zip Code is required."));
+
+        // Проверка ожидаемого результата: Телефон, элемент текст не показывается пользователю
+        // SelenideElement phoneNumberError = element(Selectors.byId("customer.phoneNumber.errors"));
+        // phoneNumberError.shouldNot(Condition.visible);
+
+        // Проверка ожидаемого результата: Телефон, элемент текст не присуствует на странице
+        // SelenideElement phoneNumberError1 = element(Selectors.byId("customer.phoneNumber.errors"));
+        // phoneNumberError1.shouldNot(Condition.exist);
+
+        // Проверка ожидаемого результата: Номер страхования
+        SelenideElement ssnError = element(Selectors.byId("customer.ssn.errors"));
+        ssnError.shouldHave(Condition.exactText("Social Security Number is required."));
+
+        // Проверка ожидаемого результата: Юзернейм
+        SelenideElement usernameError = element(Selectors.byId("customer.username.errors"));
+        usernameError.shouldHave(Condition.exactText("Username is required."));
+
+        // Проверка ожидаемого результата: Пароль
+        SelenideElement passwordError = element(Selectors.byId("customer.password.errors"));
+        passwordError.shouldHave(Condition.exactText("Password is required."));
+
+        // Проверка ожидаемого результата: Подтверждение пароля
+        SelenideElement passwordConfirmationError = element(Selectors.byId("repeatedPassword.errors"));
+        passwordConfirmationError.shouldHave(Condition.exactText("Password confirmation is required."));
     }
 }

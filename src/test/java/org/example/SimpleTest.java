@@ -3,17 +3,12 @@ package org.example;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.http.ContentType;
-import io.restassured.internal.RestAssuredResponseOptionsGroovyImpl;
-import org.apache.http.HttpStatus;
 import org.example.api.StudentRequests;
 import org.example.api.models.Student;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.path.json.JsonPath.from;
-import static org.hamcrest.Matchers.hasKey;
 
 public class SimpleTest {
 
