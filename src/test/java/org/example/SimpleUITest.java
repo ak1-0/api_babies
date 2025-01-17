@@ -4,7 +4,6 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 import java.nio.channels.Selector;
@@ -80,4 +79,72 @@ public class SimpleUITest {
         passwordConfirmationError.shouldHave(Condition.exactText("Password confirmation is required."));
         addressError.shouldHave(Condition.cssClass("error"));
     }
+
+    @Test
+    public void userCanCreateAccountWithValidData() {
+        // Подготовка: Открытие страницы регистрации
+        Selenide.open("https://parabank.parasoft.com/parabank/register.htm");
+
+        // Шаги теста: Заполнение всех обязательных полей
+
+        // Имя
+        SelenideElement firstName = element(Selectors.byId("customer.firstName"));
+        firstName.sendKeys("Саша");
+
+        // Фамилия
+        SelenideElement lastName = element(Selectors.byId("customer.lastName"));
+        lastName.sendKeys("Пше");
+
+        // Адрес
+        SelenideElement address = element(Selectors.byId("customer.address.street"));
+        address.sendKeys("Саша");
+
+        // Город
+        SelenideElement city = element(Selectors.byId("customer.address.city"));
+        city.sendKeys("Саша");
+
+        // Область
+        SelenideElement state = element(Selectors.byId("customer.address.state"));
+        state.sendKeys("Саша");
+
+        // Почтовый индекс
+        SelenideElement zipCode = element(Selectors.byId("customer.address.zipCode"));
+        zipCode.sendKeys("Саша");
+
+        // Телефон
+        SelenideElement phoneNumber = element(Selectors.byId("customer.phoneNumber"));
+        phoneNumber.sendKeys("Саша");
+
+        // Номер социального страхования
+        SelenideElement ssn = element(Selectors.byId("customer.ssn"));
+        ssn.sendKeys("Саша");
+
+        // Юзернейм
+        SelenideElement username = element(Selectors.byId("customer.username"));
+        username.sendKeys("Саша11");
+
+        // Пароль
+        SelenideElement password = element(Selectors.byId("customer.password"));
+        password.sendKeys("Саша11");
+
+        // Подтверждение пароля
+        SelenideElement repeatedPassword = element(Selectors.byId("repeatedPassword"));
+        repeatedPassword.sendKeys("Саша11");
+
+        // Шаги теста: Кнопка регистрации
+        SelenideElement registerButton = element(Selectors.byValue("Register"));
+        registerButton.click();
+
+        // Шаги теста: Проверка успешной регистрации
+
+        // Проверка, что после успешной регистрации пользователь перенаправлен на страницу с подтверждением
+        SelenideElement successMessage = element(Selectors.byCssSelector("#rightPanel p"));
+        successMessage.shouldHave(Condition.text("Your account was created successfully. You are now logged in."));
+
+        // Дополнительная проверка: проверка успешного перехода на страницу с логином
+        //SelenideElement loginLink = element(Selectors.byLinkText(""));
+        //loginLink.shouldBe(Condition.visible);
+    }
+
+
 }
