@@ -31,7 +31,8 @@ public class SimpleUITest {
 
         //Проверка ожидаемого результата: Адрес
         SelenideElement addressError = element(Selectors.byId("customer.address.street.errors"));
-        addressError.shouldHave(Condition.exactText("Address is required."));
+        //addressError.shouldHave(Condition.exactText("Address is required."));
+        addressError.shouldHave(Condition.cssClass("error"));
 
         //Город: City is required. ("customer.address.city.errors") ("City is required.")
         //Область: State is required. ("customer.address.state.errors") ("State is required.")
@@ -45,14 +46,17 @@ public class SimpleUITest {
         // Проверка ожидаемого результата: Город
         SelenideElement cityError = element(Selectors.byId("customer.address.city.errors"));
         cityError.shouldHave(Condition.exactText("City is required."));
+        addressError.shouldHave(Condition.cssClass("error"));
 
         // Проверка ожидаемого результата: Область
         SelenideElement stateError = element(Selectors.byId("customer.address.state.errors"));
         stateError.shouldHave(Condition.exactText("State is required."));
+        addressError.shouldHave(Condition.cssClass("error"));
 
         // Проверка ожидаемого результата: Почтовый индекс
         SelenideElement zipCodeError = element(Selectors.byId("customer.address.zipCode.errors"));
         zipCodeError.shouldHave(Condition.exactText("Zip Code is required."));
+        addressError.shouldHave(Condition.cssClass("error"));
 
         // Возможно, проверка телефона избыточная
         // Телефон, элемент показан на странице
@@ -66,17 +70,21 @@ public class SimpleUITest {
         // Проверка ожидаемого результата: Номер страхования
         SelenideElement ssnError = element(Selectors.byId("customer.ssn.errors"));
         ssnError.shouldHave(Condition.exactText("Social Security Number is required."));
+        addressError.shouldHave(Condition.cssClass("error"));
 
         // Проверка ожидаемого результата: Юзернейм
         SelenideElement usernameError = element(Selectors.byId("customer.username.errors"));
         usernameError.shouldHave(Condition.exactText("Username is required."));
+        addressError.shouldHave(Condition.cssClass("error"));
 
         // Проверка ожидаемого результата: Пароль
         SelenideElement passwordError = element(Selectors.byId("customer.password.errors"));
         passwordError.shouldHave(Condition.exactText("Password is required."));
+        addressError.shouldHave(Condition.cssClass("error"));
 
         // Проверка ожидаемого результата: Подтверждение пароля
         SelenideElement passwordConfirmationError = element(Selectors.byId("repeatedPassword.errors"));
         passwordConfirmationError.shouldHave(Condition.exactText("Password confirmation is required."));
+        addressError.shouldHave(Condition.cssClass("error"));
     }
 }
