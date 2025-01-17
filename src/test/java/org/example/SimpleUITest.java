@@ -16,22 +16,35 @@ public class SimpleUITest {
         //Подготовка
         Selenide.open("https://parabank.parasoft.com/parabank/register.htm");
 
-        //Шаги теста
+        //Шаги теста: Имя
         SelenideElement firstName = element(Selectors.byId("customer.firstName"));
-        firstName.sendKeys("Alina");
+        firstName.sendKeys("Саша");
 
+        //Шаги теста: Фамилия
         SelenideElement lastName = element(Selectors.byId("customer.lastName"));
-        lastName.sendKeys("K");
+        lastName.sendKeys("Пше");
 
+        //Шаги теста: Кнопка регистрации
         SelenideElement registerButton = element(Selectors.byValue("Register"));
         registerButton.click();
+        //Шаги теста: Имя
 
-        //Проверка ожидаемого результата
+        //Проверка ожидаемого результата: Адрес
         SelenideElement addressError = element(Selectors.byId("customer.address.street.errors"));
         addressError.shouldHave(Condition.exactText("Address is required."));
 
-        //все оставшиеся обязательные поля
+        //Город: City is required. ("customer.address.city.errors") ("City is required.")
+        //Область: State is required. ("customer.address.state.errors") ("State is required.")
+        //Почтовый индекс: Zip Code is required. ("customer.address.zipCode.errors") ("Zip Code is required.")
+        //Телефон: ("customer.phoneNumber") ("")
+        //Номер страхования: Social Security Number is required. ("customer.ssn.errors") ("Social Security Number is required.")
+        //Юзернейм: Username is required. ("customer.username.errors") ("Username is required.)
+        //Пароль: Password is required. ("customer.password.errors") ("Password is required.")
+        //Подтверждение пароля: Password confirmation is required. ("repeatedPassword.errors") ("Password confirmation is required.")
 
-        //финальный успешный тест
+        // Проверка ожидаемого результата: Город
+        SelenideElement cityError = element(Selectors.byId("customer.address.city.errors"));
+        cityError.shouldHave(Condition.exactText("City is required."));
+
     }
 }
