@@ -46,5 +46,8 @@ public class SimpleUITest {
         SelenideElement cityError = element(Selectors.byId("customer.address.city.errors"));
         cityError.shouldHave(Condition.exactText("City is required."));
 
+        SelenideElement stateError = element(Selectors.byId("customer.address.state.errors"));
+        stateError.shouldHave(Condition.exactText("State is required."));
+
     }
 }
