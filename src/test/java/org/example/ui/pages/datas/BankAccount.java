@@ -18,8 +18,4 @@ public class BankAccount {
     private String username;
     private String password;
     private String passwordConfirmation;
-
-
-
-
 }
