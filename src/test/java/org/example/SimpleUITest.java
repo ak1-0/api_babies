@@ -1,9 +1,7 @@
 package org.example;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selectors;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.nio.channels.Selector;
@@ -12,6 +10,13 @@ import static com.codeborne.selenide.Selenide.element;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class SimpleUITest {
+    @BeforeAll
+    public static void setupUiTests(){
+        Configuration.baseUrl = "https://parabank.parasoft.com";
+        //Configuration.browser = "firefox";
+        //Configuration.timeout = 10;
+
+    }
 
     @Test
     public void userCanNotCreateAccountWithNameAndSurnameOnly(){
