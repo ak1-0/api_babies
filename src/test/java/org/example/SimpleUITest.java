@@ -2,6 +2,7 @@ package org.example;
 
 import com.codeborne.selenide.*;
 import org.example.ui.pages.RegisterAccountPage;
+import org.example.ui.pages.datas.BankAccount;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -22,14 +23,18 @@ public class SimpleUITest {
 
     @Test
     public void userCanNotCreateAccountWithNameAndSurnameOnly(){
-        //Подготовка
-        //Selenide.open("/parabank/register.htm");
+        //Подготовка страницы
         // Создаем новую страничку
         RegisterAccountPage registerAccountPage = new RegisterAccountPage();
-
         registerAccountPage.open();
 
-        registerAccountPage.register("Саша", "Git");
+        //Подготовка данных
+        BankAccount bankAccount = BankAccount.builder()
+                .firstName("Саша").lastName("Пше")
+                .build();
+                //здесь надо указать все поля
+
+        registerAccountPage.register(bankAccount);
 
         //Шаги теста: Имя
         //SelenideElement firstName = element(Selectors.byId("customer.firstName"));
