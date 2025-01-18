@@ -7,6 +7,9 @@ import com.codeborne.selenide.SelenideElement;
 import lombok.Getter;
 import org.example.ui.pages.datas.BankAccount;
 
+import java.util.List;
+import java.util.Map;
+
 import static com.codeborne.selenide.Selenide.element;
 
 @Getter
@@ -15,15 +18,15 @@ public class RegisterAccountPage {
     private SelenideElement lastNameInput = element(Selectors.byId("customer.lastName"));
 
     //добавить все важные элементы веб-странички В ПОЛЯ
-    private SelenideElement addressInput = element(Selectors.byId("customer.address.street")); // <-- добавлено
-    private SelenideElement cityInput = element(Selectors.byId("customer.address.city")); // <-- добавлено
-    private SelenideElement stateInput = element(Selectors.byId("customer.address.state")); // <-- добавлено
-    private SelenideElement zipCodeInput = element(Selectors.byId("customer.address.zipCode")); // <-- добавлено
-    private SelenideElement phoneNumberInput = element(Selectors.byId("customer.phoneNumber")); // <-- добавлено
-    private SelenideElement ssnInput = element(Selectors.byId("customer.ssn")); // <-- добавлено
-    private SelenideElement usernameInput = element(Selectors.byId("customer.username")); // <-- добавлено
-    private SelenideElement passwordInput = element(Selectors.byId("customer.password")); // <-- добавлено
-    private SelenideElement repeatedPasswordInput = element(Selectors.byId("repeatedPassword")); // <-- добавлено
+    private SelenideElement addressInput = element(Selectors.byId("customer.address.street"));
+    private SelenideElement cityInput = element(Selectors.byId("customer.address.city"));
+    private SelenideElement stateInput = element(Selectors.byId("customer.address.state"));
+    private SelenideElement zipCodeInput = element(Selectors.byId("customer.address.zipCode"));
+    private SelenideElement phoneNumberInput = element(Selectors.byId("customer.phoneNumber"));
+    private SelenideElement ssnInput = element(Selectors.byId("customer.ssn"));
+    private SelenideElement usernameInput = element(Selectors.byId("customer.username"));
+    private SelenideElement passwordInput = element(Selectors.byId("customer.password"));
+    private SelenideElement repeatedPasswordInput = element(Selectors.byId("repeatedPassword"));
 
     private SelenideElement registerButton = element(Selectors.byValue("Register"));
 
@@ -38,46 +41,35 @@ public class RegisterAccountPage {
     private SelenideElement usernameError = element(Selectors.byId("customer.username.errors"));
     private SelenideElement passwordError = element(Selectors.byId("customer.password.errors"));
     private SelenideElement passwordConfirmationError = element(Selectors.byId("repeatedPassword.errors"));
-    public void open(){
+
+    public void open() {
         Selenide.open("/parabank/register.htm");
     }
 
     public void register(BankAccount bankAccount) {
-        if (bankAccount.getFirstName() != null) {
-            firstNameInput.sendKeys(bankAccount.getFirstName());
-        }
-        if (bankAccount.getLastName() != null) {
-            lastNameInput.sendKeys(bankAccount.getLastName());
-        }
-        if (bankAccount.getAddress() != null) {
-            addressInput.sendKeys(bankAccount.getAddress());
-        }
-        if (bankAccount.getCity() != null) {
-            cityInput.sendKeys(bankAccount.getCity());
-        }
-        if (bankAccount.getState() != null) {
-            stateInput.sendKeys(bankAccount.getState());
-        }
-        if (bankAccount.getZipCode() != null) {
-            zipCodeInput.sendKeys(bankAccount.getZipCode());
-        }
-        if (bankAccount.getPhoneNumber() != null) {
-            phoneNumberInput.sendKeys(bankAccount.getPhoneNumber());
-        }
-        if (bankAccount.getSsn() != null) {
-            ssnInput.sendKeys(bankAccount.getSsn());
-        }
-        if (bankAccount.getUsername() != null) {
-            usernameInput.sendKeys(bankAccount.getUsername());
-        }
-        if (bankAccount.getPassword() != null) {
-            passwordInput.sendKeys(bankAccount.getPassword());
-        }
-        if (bankAccount.getPasswordConfirmation() != null) {
-            repeatedPasswordInput.sendKeys(bankAccount.getPasswordConfirmation());
-        }
+        List<Runnable> actions = List.of(
+                () -> fillInput(bankAccount.getFirstName(), firstNameInput),
+                () -> fillInput(bankAccount.getLastName(), lastNameInput),
+                () -> fillInput(bankAccount.getAddress(), addressInput),
+                () -> fillInput(bankAccount.getCity(), cityInput),
+                () -> fillInput(bankAccount.getState(), stateInput),
+                () -> fillInput(bankAccount.getZipCode(), zipCodeInput),
+                () -> fillInput(bankAccount.getPhoneNumber(), phoneNumberInput),
+                () -> fillInput(bankAccount.getSsn(), ssnInput),
+                () -> fillInput(bankAccount.getUsername(), usernameInput),
+                () -> fillInput(bankAccount.getPassword(), passwordInput),
+                () -> fillInput(bankAccount.getPasswordConfirmation(), repeatedPasswordInput)
+        );
+
+        actions.forEach(Runnable::run);
 
         registerButton.click();
     }
 
+    private void fillInput(String value, SelenideElement input) {
+        if (value != null) {
+            input.sendKeys(value);
+        }
+
+    }
 }
