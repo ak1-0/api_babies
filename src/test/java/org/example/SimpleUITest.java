@@ -3,6 +3,7 @@ package org.example;
 import com.codeborne.selenide.*;
 import org.example.ui.pages.RegisterAccountPage;
 import org.example.ui.pages.datas.BankAccount;
+import org.example.utils.RandomData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +19,7 @@ public class SimpleUITest {
         // ПРИНЦИПЫ
         // DRY = Dont Repeat Yourself
         // Веб элементы НЕ ИШУТСЯ в тесте, они ищутся в PAGE OBJECT классе
+        // АВТОТЕСТ САМ СОЗДАЕТ РАНДОМИЗИРОВАННЫЕ ДАННЫЕ
 
     }
 
@@ -30,7 +32,7 @@ public class SimpleUITest {
 
         //Подготовка данных
         BankAccount bankAccount = BankAccount.builder()
-                .firstName("Саша").lastName("Пше")
+                .firstName(RandomData.randomString()).lastName(RandomData.randomString())
                 .build();
                 //здесь надо указать все поля
 
