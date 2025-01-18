@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import lombok.Getter;
+import org.example.ui.pages.datas.BankAccount;
 
 import static com.codeborne.selenide.Selenide.element;
 
@@ -45,9 +46,10 @@ public class RegisterAccountPage {
         Selenide.open("/parabank/register.htm");
     }
 
-    public void register(String firstName, String lastName){
-        firstNameInput.sendKeys(firstName);
-        lastNameInput.sendKeys(lastName);
+    public void register(BankAccount bankAccount){
+        firstNameInput.sendKeys(bankAccount.getFirstName());
+        lastNameInput.sendKeys(bankAccount.getLastName());
+
 
         registerButton.click();
     }
