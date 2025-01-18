@@ -6,11 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.*;
 
 @Data
-//@AllArgsConstructor
 @Builder
-//@ToString
-//@Setter
-//@Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Student {
     private String name;

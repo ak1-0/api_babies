@@ -1,13 +1,11 @@
 package org.example;
 
 import com.codeborne.selenide.*;
+import org.example.ui.pages.RegisterAccountPage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.nio.channels.Selector;
-
 import static com.codeborne.selenide.Selenide.element;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class SimpleUITest {
     @BeforeAll
@@ -16,73 +14,74 @@ public class SimpleUITest {
         //Configuration.browser = "firefox";
         //Configuration.timeout = 10;
 
+        // ПРИНЦИПЫ
+        // DRY = Dont Repeat Yourself
+        // Веб элементы НЕ ИШУТСЯ в тесте, они ищутся в PAGE OBJECT классе
+
     }
 
     @Test
     public void userCanNotCreateAccountWithNameAndSurnameOnly(){
         //Подготовка
-        Selenide.open("https://parabank.parasoft.com/parabank/register.htm");
+        //Selenide.open("/parabank/register.htm");
+        // Создаем новую страничку
+        RegisterAccountPage registerAccountPage = new RegisterAccountPage();
+
+        registerAccountPage.open();
+
+        registerAccountPage.register("Саша", "Git");
 
         //Шаги теста: Имя
-        SelenideElement firstName = element(Selectors.byId("customer.firstName"));
-        firstName.sendKeys("Саша");
+        //SelenideElement firstName = element(Selectors.byId("customer.firstName"));
+        //firstName.sendKeys("Саша");
 
         //Шаги теста: Фамилия
-        SelenideElement lastName = element(Selectors.byId("customer.lastName"));
-        lastName.sendKeys("Пше");
+        //SelenideElement lastName = element(Selectors.byId("customer.lastName"));
+        //lastName.sendKeys("Пше");
 
         //Шаги теста: Кнопка регистрации
-        SelenideElement registerButton = element(Selectors.byValue("Register"));
-        registerButton.click();
+        //SelenideElement registerButton = element(Selectors.byValue("Register"));
+        //registerButton.click();
 
         //Проверка ожидаемого результата: Адрес
-        SelenideElement addressError = element(Selectors.byId("customer.address.street.errors"));
-        //addressError.shouldHave(Condition.exactText("Address is required."));
-        addressError.shouldHave(Condition.cssClass("error"));
+        //SelenideElement addressError = element(Selectors.byId("customer.address.street.errors"));
+        registerAccountPage.getAddressError().shouldHave(Condition.exactText("Address is required."));
+        registerAccountPage.getAddressError().shouldHave(Condition.cssClass("error"));
 
         // Проверка ожидаемого результата: Город
-        SelenideElement cityError = element(Selectors.byId("customer.address.city.errors"));
-        cityError.shouldHave(Condition.exactText("City is required."));
-        addressError.shouldHave(Condition.cssClass("error"));
+        registerAccountPage.getCityError().shouldHave(Condition.exactText("City is required."));
+        registerAccountPage.getCityError().shouldHave(Condition.cssClass("error"));
 
         // Проверка ожидаемого результата: Область
-        SelenideElement stateError = element(Selectors.byId("customer.address.state.errors"));
-        stateError.shouldHave(Condition.exactText("State is required."));
-        addressError.shouldHave(Condition.cssClass("error"));
+        registerAccountPage.getStateError().shouldHave(Condition.exactText("State is required."));
+        registerAccountPage.getStateError().shouldHave(Condition.cssClass("error"));
 
         // Проверка ожидаемого результата: Почтовый индекс
-        SelenideElement zipCodeError = element(Selectors.byId("customer.address.zipCode.errors"));
-        zipCodeError.shouldHave(Condition.exactText("Zip Code is required."));
-        addressError.shouldHave(Condition.cssClass("error"));
+        registerAccountPage.getZipCodeError().shouldHave(Condition.exactText("Zip Code is required."));
+        registerAccountPage.getZipCodeError().shouldHave(Condition.cssClass("error"));
 
         // Возможно, проверка телефона избыточная
         // Телефон, элемент показан на странице
-        SelenideElement phoneNumber = element(Selectors.byId("customer.phoneNumber"));
-        phoneNumber.shouldBe(Condition.visible);
+        registerAccountPage.getPhoneNumber().shouldBe(Condition.visible);
 
         // Телефон, элемент присуствует на странице
-        SelenideElement phoneNumber1 = element(Selectors.byId("customer.phoneNumber"));
-        phoneNumber1.shouldBe(Condition.exist);
+        registerAccountPage.getPhoneNumber1().shouldBe(Condition.exist);
 
         // Проверка ожидаемого результата: Номер страхования
-        SelenideElement ssnError = element(Selectors.byId("customer.ssn.errors"));
-        ssnError.shouldHave(Condition.exactText("Social Security Number is required."));
-        addressError.shouldHave(Condition.cssClass("error"));
+        registerAccountPage.getSsnError().shouldHave(Condition.exactText("Social Security Number is required."));
+        registerAccountPage.getSsnError().shouldHave(Condition.cssClass("error"));
 
         // Проверка ожидаемого результата: Юзернейм
-        SelenideElement usernameError = element(Selectors.byId("customer.username.errors"));
-        usernameError.shouldHave(Condition.exactText("Username is required."));
-        addressError.shouldHave(Condition.cssClass("error"));
+        registerAccountPage.getUsernameError().shouldHave(Condition.exactText("Username is required."));
+        registerAccountPage.getUsernameError().shouldHave(Condition.cssClass("error"));
 
         // Проверка ожидаемого результата: Пароль
-        SelenideElement passwordError = element(Selectors.byId("customer.password.errors"));
-        passwordError.shouldHave(Condition.exactText("Password is required."));
-        addressError.shouldHave(Condition.cssClass("error"));
+        registerAccountPage.getPasswordError().shouldHave(Condition.exactText("Password is required."));
+        registerAccountPage.getPasswordError().shouldHave(Condition.cssClass("error"));
 
         // Проверка ожидаемого результата: Подтверждение пароля
-        SelenideElement passwordConfirmationError = element(Selectors.byId("repeatedPassword.errors"));
-        passwordConfirmationError.shouldHave(Condition.exactText("Password confirmation is required."));
-        addressError.shouldHave(Condition.cssClass("error"));
+        registerAccountPage.getPasswordConfirmationError().shouldHave(Condition.exactText("Password confirmation is required."));
+        registerAccountPage.getPasswordConfirmationError().shouldHave(Condition.cssClass("error"));
     }
 
     @Test
