@@ -30,7 +30,7 @@ public class SimpleUITest {
         RegisterAccountPage registerAccountPage = new RegisterAccountPage();
         registerAccountPage.open();
 
-        //Подготовка данных
+        //Подготовка данных - можно генерировать данные
         BankAccount bankAccount = BankAccount.builder()
                 .firstName(RandomData.randomString())
                 .lastName(RandomData.randomString())

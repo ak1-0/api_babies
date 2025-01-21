@@ -15,11 +15,14 @@ public class StudentRequests {
     // Метод для создания студента
     public static Student createStudent(Student student) {
         String studentJson = JsonMapper.studentToJson(student); // Используем новый метод для маппинга в JSON
+        //Улучшение: делать из этого метода общий метод, в котом есть параметр url и параметр класс
+        // тогда можно не писать Student request, тогда можно генерировать общий класс по эндпоинту
 
         // Отправляем запрос на создание студента
         return given()
                 .body(studentJson)
-                .contentType(ContentType.JSON)
+                .contentType(ContentType.JSON) // можно вынести в спецификацию запроса
+                //.spec
                 .when()
                 .post("/student/") // путь к API для создания
                 .then()
